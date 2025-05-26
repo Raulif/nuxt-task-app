@@ -10,8 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxt/eslint": "^1.4.1",
-    "eslint": "^9.27.0",
+    "@picocss/pico": "^2.1.1",
     "nuxt": "^3.17.4",
     "vue": "^3.5.14",
     "vue-router": "^4.5.1"

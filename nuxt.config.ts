@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-05-15',
-  devtools: { enabled: true },
-  modules: ['@nuxt/eslint']
-})
+	modules: [],
+	devtools: { enabled: true },
+	css: ['@picocss/pico'],
+	compatibilityDate: '2025-05-15'
+});
