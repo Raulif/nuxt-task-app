@@ -11,4 +11,11 @@
 .error {
 	color: red;
 }
+.success {
+	color: green;
+}
+.button-container {
+	display: flex;
+	justify-content: flex-end;
+}
 </style>

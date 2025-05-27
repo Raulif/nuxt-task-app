@@ -7,7 +7,10 @@ const { data: tasks, error, status } = await useFetch('/api/tasks', { lazy: true
     v-if="status === 'pending'"
     aria-busy="true"
   />
-  <article class="error" v-else-if="error">
+  <article
+    class="error"
+    v-else-if="error"
+  >
     {{ error.statusMessage }}
   </article>
   <div v-else>
@@ -16,6 +19,9 @@ const { data: tasks, error, status } = await useFetch('/api/tasks', { lazy: true
       :key="task.id"
     >
       {{ task.title }}
+      <div class="button-container">
+        <NuxtLink role="button" :to="{ name: 'tasks-id', params: { id: task.id } }">Go to</NuxtLink>
+      </div>
     </article>
   </div>
 </template>
