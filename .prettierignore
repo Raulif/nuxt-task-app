@@ -5,3 +5,4 @@ coverage
 .output
 **/*.db
 package-lock.json
+.husky
