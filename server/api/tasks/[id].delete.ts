@@ -1,7 +1,6 @@
 import { eq } from 'drizzle-orm';
 import db from '~/lib/db';
-import { tasks, idParamsSchema } from '~/lib/db/schema';
-
+import { idParamsSchema, tasks } from '~/lib/db/schema';
 export default defineEventHandler(async (event) => {
   const result = await getValidatedRouterParams(
     event,
@@ -12,23 +11,22 @@ export default defineEventHandler(async (event) => {
       event,
       createError({
         status: 422,
-        statusMessage: 'Invalid id',
+        statusMessage: 'Invalid task id',
       })
     );
   }
 
-  const task = await db.query.tasks.findFirst({
-    where: eq(tasks.id, result.data.id),
-  });
+  const { id } = result.data;
+  const res = await db.delete(tasks).where(eq(tasks.id, id)).returning();
 
-  if (!task) {
+  if (!res) {
     return sendError(
       event,
       createError({
         status: 404,
-        statusMessage: 'Task not found',
+        statusMessage: 'Task could not be deleted',
       })
     );
   }
-  return task;
+  return res;
 });

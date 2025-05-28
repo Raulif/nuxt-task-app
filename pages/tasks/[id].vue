@@ -1,49 +1,53 @@
 <script lang="ts" setup>
-import { FetchError } from 'ofetch'
+  import { FetchError } from "ofetch";
 
-const errorMessage = ref('')
-const updating = ref(false)
-const route = useRoute()
-const { data: task, error, status } = await useFetch(`/api/tasks/${route.params.id}`, {
-  lazy: true
-})
-const title = ref(task.value?.title || '')
-const done = ref(task.value?.done || false)
-const success = ref(false)
-async function onSubmit() {
-  success.value = false
-  if ((title.value === task.value?.title && done.value === task.value?.done)) {
-    errorMessage.value = 'Nothing new to upate'
-    return
-  }
-
-  try {
-    updating.value = true
-    const updated = await $fetch(`/api/tasks/${task.value?.id}`, {
-      method: 'PUT',
-      body: {
-        title: title.value || task.value?.title,
-        done: done.value,
-        id: task.value?.id
-      }
-    })
-
-    if (updated.id) {
-      success.value = true
+  const errorMessage = ref("");
+  const updating = ref(false);
+  const route = useRoute();
+  const {
+    data: task,
+    error,
+    status,
+  } = await useFetch(`/api/tasks/${route.params.id}`, {
+    lazy: true,
+  });
+  const title = ref(task.value?.title || "");
+  const done = ref(task.value?.done || false);
+  const success = ref(false);
+  async function onSubmit() {
+    success.value = false;
+    if (title.value === task.value?.title && done.value === task.value?.done) {
+      errorMessage.value = "Nothing new to upate";
+      return;
     }
-  } catch (e) {
-    const error = e as FetchError
-    errorMessage.value = error.statusMessage || 'Unknow error occured when updating Task'
 
+    try {
+      updating.value = true;
+      const updated = await $fetch(`/api/tasks/${task.value?.id}`, {
+        method: "PUT",
+        body: {
+          title: title.value || task.value?.title,
+          done: done.value,
+          id: task.value?.id,
+        },
+      });
+
+      if (updated.id) {
+        success.value = true;
+      }
+    } catch (e) {
+      const error = e as FetchError;
+      errorMessage.value =
+        error.statusMessage || "Unknow error occured when updating Task";
+    }
+    updating.value = false;
   }
-  updating.value = false
-}
-const nothingChanged = computed(() => title.value === task.value?.title && done.value === task.value?.done)
-
+  const nothingChanged = computed(
+    () => title.value === task.value?.title && done.value === task.value?.done,
+  );
 </script>
 
 <template>
-
   <article
     v-if="status === 'pending'"
     aria-busy="true"
