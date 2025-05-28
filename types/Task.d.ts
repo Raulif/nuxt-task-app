@@ -4,4 +4,4 @@ export type Task = {
   done: boolean;
   createdAt: number;
   updatedAt: number;
-}
+};

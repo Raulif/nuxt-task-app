@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
       createError({
         status: 422,
         statusMessage: 'Invalid task',
-      })
+      }),
     );
   }
   const [created] = await db.insert(tasks).values(result.data).returning();

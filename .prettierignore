@@ -2,3 +2,6 @@
 build
 coverage
 .nuxt
+.output
+**/*.db
+package-lock.json

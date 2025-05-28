@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-  import { FetchError } from "ofetch";
+  import { FetchError } from 'ofetch';
 
-  const errorMessage = ref("");
+  const errorMessage = ref('');
   const updating = ref(false);
   const route = useRoute();
   const {
@@ -11,20 +11,20 @@
   } = await useFetch(`/api/tasks/${route.params.id}`, {
     lazy: true,
   });
-  const title = ref(task.value?.title || "");
+  const title = ref(task.value?.title || '');
   const done = ref(task.value?.done || false);
   const success = ref(false);
   async function onSubmit() {
     success.value = false;
     if (title.value === task.value?.title && done.value === task.value?.done) {
-      errorMessage.value = "Nothing new to upate";
+      errorMessage.value = 'Nothing new to upate';
       return;
     }
 
     try {
       updating.value = true;
       const updated = await $fetch(`/api/tasks/${task.value?.id}`, {
-        method: "PUT",
+        method: 'PUT',
         body: {
           title: title.value || task.value?.title,
           done: done.value,
@@ -38,7 +38,7 @@
     } catch (e) {
       const error = e as FetchError;
       errorMessage.value =
-        error.statusMessage || "Unknow error occured when updating Task";
+        error.statusMessage || 'Unknow error occured when updating Task';
     }
     updating.value = false;
   }

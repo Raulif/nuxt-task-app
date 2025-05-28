@@ -1,11 +1,11 @@
-import { int, sqliteTable, text } from "drizzle-orm/sqlite-core";
-import { createInsertSchema, createUpdateSchema } from "drizzle-zod";
-import { z } from "zod";
+import { int, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { createInsertSchema, createUpdateSchema } from 'drizzle-zod';
+import { z } from 'zod';
 
-export const tasks = sqliteTable("tasks", {
+export const tasks = sqliteTable('tasks', {
   id: int().primaryKey({ autoIncrement: true }),
   title: text().notNull(),
-  done: int({ mode: "boolean" }).notNull().default(false),
+  done: int({ mode: 'boolean' }).notNull().default(false),
   createdAt: int().$defaultFn(() => Date.now()),
   updatedAt: int()
     .$defaultFn(() => Date.now())

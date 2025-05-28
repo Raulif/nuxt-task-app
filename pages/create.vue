@@ -1,33 +1,33 @@
 <script lang="ts" setup>
-  import { FetchError } from "ofetch";
+  import { FetchError } from 'ofetch';
 
-  const errorMessage = ref("");
+  const errorMessage = ref('');
   const loading = ref(false);
-  const taskName = ref("");
+  const taskName = ref('');
 
   async function onSubmit() {
     if (!taskName.value.trim()) {
-      errorMessage.value = "Task is required";
+      errorMessage.value = 'Task is required';
       return;
     }
     try {
       loading.value = true;
-      errorMessage.value = "";
-      const result = await $fetch("/api/tasks", {
-        method: "POST",
+      errorMessage.value = '';
+      const result = await $fetch('/api/tasks', {
+        method: 'POST',
         body: {
           title: taskName.value,
         },
       });
       navigateTo({
-        name: "tasks-id",
+        name: 'tasks-id',
         params: {
           id: result.id,
         },
       });
     } catch (e) {
       const error = e as FetchError;
-      errorMessage.value = error.statusMessage || "Unknown error occurred";
+      errorMessage.value = error.statusMessage || 'Unknown error occurred';
     }
     loading.value = false;
   }

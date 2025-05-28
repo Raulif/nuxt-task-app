@@ -10,17 +10,18 @@ export default defineEventHandler(async (event) => {
       createError({
         status: 422,
         statusMessage: 'Invalid task data',
-      })
+      }),
     );
   }
 
   const { id, title, done } = result.data;
- 
+
   const updatedData = { done, ...(title ? { title } : {}) };
   const res = await db
     .update(tasks)
     .set(updatedData)
-    .where(eq(tasks.id, id as number)).returning();
+    .where(eq(tasks.id, id as number))
+    .returning();
 
   if (!res.length) {
     return sendError(
@@ -28,7 +29,7 @@ export default defineEventHandler(async (event) => {
       createError({
         status: 404,
         statusMessage: 'Task could not updated',
-      })
+      }),
     );
   }
 

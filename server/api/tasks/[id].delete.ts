@@ -4,7 +4,7 @@ import { idParamsSchema, tasks } from '~/lib/db/schema';
 export default defineEventHandler(async (event) => {
   const result = await getValidatedRouterParams(
     event,
-    idParamsSchema.safeParse
+    idParamsSchema.safeParse,
   );
   if (!result.success) {
     return sendError(
@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
       createError({
         status: 422,
         statusMessage: 'Invalid task id',
-      })
+      }),
     );
   }
 
@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
       createError({
         status: 404,
         statusMessage: 'Task could not be deleted',
-      })
+      }),
     );
   }
   return res;

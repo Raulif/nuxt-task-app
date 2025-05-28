@@ -1,5 +1,6 @@
 {
   "vueIndentScriptAndStyle": true,
   "singleAttributePerLine": true,
-  "bracketSameLine": false
+  "bracketSameLine": false,
+  "singleQuote": true
 }

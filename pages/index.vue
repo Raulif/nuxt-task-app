@@ -1,17 +1,16 @@
 <script lang="ts" setup>
-  import { AppDeleteButton } from "#components";
+  import { AppDeleteButton } from '#components';
 
   const {
     data: tasks,
     error,
     status,
-    refresh,
-  } = await useFetch("/api/tasks", { lazy: true });
+  } = await useFetch('/api/tasks', { lazy: true });
 
   const onDelete = (id: number) => {
     const atIndex = tasks.value?.findIndex((t) => t.id === id);
 
-    if (typeof atIndex === "number" && atIndex > -1) {
+    if (typeof atIndex === 'number' && atIndex > -1) {
       tasks.value?.splice(atIndex, 1);
     }
   };
