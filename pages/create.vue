@@ -20,7 +20,7 @@
         },
       });
       navigateTo({
-        name: "tasks-id",
+        name: 'tasks-id',
         params: {
           id: result.id,
         },
